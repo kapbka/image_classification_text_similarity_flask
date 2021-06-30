@@ -1,3 +1,4 @@
+flask
 Flask-RESTful
 flask-jwt-extended
 Flask-SQLAlchemy
