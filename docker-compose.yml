@@ -3,8 +3,8 @@ version: "3"
 services:
   web:
     image: karbka/rest_flask_2:latest
-    build: ./web
-      context: .
+    build:
+      context: ./web
     restart: always
     ports:
       - "5000:5000"
