@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # copy the content of the local src directory to the working directory
 COPY . .
 
-ENV PYTHONPATH=/code/restful_flask_2
+#ENV PYTHONPATH=/code/restful_flask_2
 #ENV INSIDE_DOCKER_CONTAINER=1
 
 # command to run on container start

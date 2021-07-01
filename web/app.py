@@ -1,16 +1,33 @@
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 
+from pymongo import MongoClient
+
 
 app = Flask(__name__)
 api = Api(app)
+
+client = MongoClient('mongodb://db:27017')  ## default port 27017
+db = client.ANewDB
+user_num = db['user_num']
+user_num.insert({
+    'num_of_users': 0
+})
+
+
+class Visit(Resource):
+    def get(self):
+        prev_num = user_num.find({})[0]['num_of_users']
+        new_num = prev_num + 1
+        user_num.update({}, {"$set":{"num_of_users":new_num}})
+        return str("Hello user " + str(new_num))
 
 
 class Operation:
     def __init__(self, name):
         self.name = name
 
-    def checkPostedData(self, posted_data):
+    def check_posted_data(self, posted_data):
         if self.name in ['add', 'subtract', 'multiply']:
             if 'x' not in posted_data or 'y' not in posted_data:
                 return 301  # missing parameter
@@ -30,7 +47,7 @@ class Operation:
         posted_data = request.get_json()
 
         # 1a verify validity of posted data
-        status_code = self.checkPostedData(posted_data)
+        status_code = self.check_posted_data(posted_data)
         if status_code != 200:
             ret_json = {
                 'Message': 'An error occurred',
@@ -86,6 +103,7 @@ api.add_resource(Add, '/add')
 api.add_resource(Subtract, '/subtract')
 api.add_resource(Multiply, '/multiply')
 api.add_resource(Divide, '/divide')
+api.add_resource(Visit, '/hello')
 
 
 @app.route('/')
@@ -99,4 +117,4 @@ def hi_there():
 
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000)

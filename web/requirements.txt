@@ -1,5 +1,6 @@
 flask
 Flask-RESTful
+pymongo
 flask-jwt-extended
 Flask-SQLAlchemy
 #uwsgi
