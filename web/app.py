@@ -10,7 +10,7 @@ api = Api(app)
 client = MongoClient('mongodb://db:27017')  ## default port 27017
 db = client.ANewDB
 user_num = db['user_num']
-user_num.insert({
+user_num.insert_one({
     'num_of_users': 0
 })
 
