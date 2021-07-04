@@ -5,4 +5,4 @@ bcrypt
 flask-jwt-extended
 Flask-SQLAlchemy
 #uwsgi
-psycopg2
+#psycopg2

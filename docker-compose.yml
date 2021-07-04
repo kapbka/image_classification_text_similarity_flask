@@ -2,7 +2,7 @@ version: "3"
 
 services:
   web:
-    image: karbka/rest_flask_2:latest
+    image: karbka/rest_flask_2_web:latest
     build:
       context: ./web
     restart: always
@@ -12,6 +12,8 @@ services:
       - db
 
   db:
-    image: karbka/rest_flask_2:latest
-      build:
-        context: ./db
+    image: karbka/rest_flask_2_db:latest
+    build:
+      context: ./db
+    ports:
+      - "27017:27017"
