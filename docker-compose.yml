@@ -1,18 +1,45 @@
 version: "3"
 
 services:
-  web:
-    image: karbka/rest_flask_2_web:latest
+  base:
+    image: base:latest
     build:
-      context: ./web
+      context: base
+
+  web_operation:
+    build:
+      context: web_operation
     restart: always
     ports:
       - "5000:5000"
     links:
       - db
+    depends_on:
+      - base
+
+  web_store:
+    build:
+      context: web_store
+    restart: always
+    ports:
+      - "5001:5000"
+    links:
+      - db
+    depends_on:
+      - base
+
+  web_text_similarity:
+    build:
+      context: web_text_similarity
+    restart: always
+    ports:
+      - "5002:5000"
+    links:
+      - db
+    depends_on:
+      - base
 
   db:
-    image: karbka/rest_flask_2_db:latest
     build:
       context: ./db
     ports:

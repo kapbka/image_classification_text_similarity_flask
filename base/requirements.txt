@@ -1,0 +1,9 @@
+flask
+Flask-RESTful
+pymongo
+bcrypt
+flask-jwt-extended
+Flask-SQLAlchemy
+spacy
+#uwsgi
+#psycopg2
