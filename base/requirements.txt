@@ -2,6 +2,9 @@ flask
 Flask-RESTful
 pymongo
 bcrypt
+numpy
+tensorflow
+requests
 flask-jwt-extended
 Flask-SQLAlchemy
 spacy

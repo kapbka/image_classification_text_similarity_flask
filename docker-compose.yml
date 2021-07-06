@@ -12,8 +12,6 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    links:
-      - db
     depends_on:
       - base
 
@@ -23,8 +21,6 @@ services:
     restart: always
     ports:
       - "5001:5000"
-    links:
-      - db
     depends_on:
       - base
 
@@ -34,8 +30,15 @@ services:
     restart: always
     ports:
       - "5002:5000"
-    links:
-      - db
+    depends_on:
+      - base
+
+  web_image_classification:
+    build:
+      context: web_image_classification
+    restart: always
+    ports:
+      - "5003:5000"
     depends_on:
       - base
 

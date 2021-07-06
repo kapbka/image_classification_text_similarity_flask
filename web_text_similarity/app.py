@@ -14,18 +14,18 @@ users = db["Users"]
 
 
 def user_exists(username):
-    return users.find({"Username": username}).count() == 0
+    return users.find({"Username": username}).count() != 0
 
 
 def verify_pw(username, password):
-    if not user_exists(username):
+    if user_exists(username):
         return False
 
     hashed_pw = users.find({
         "Username": username
     })[0]["Password"]
 
-    return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()) == hashed_pw
+    return bcrypt.hashpw(password.encode('utf8'), hashed_pw) == hashed_pw
 
 
 def count_tokens(username):
@@ -43,7 +43,7 @@ class Register(Resource):
         username = posted_data['username']
         password = posted_data['password']
 
-        if not user_exists(username):
+        if user_exists(username):
             ret_json = {
                 'status': 301,
                 'msg': 'Invalid username'
@@ -85,8 +85,8 @@ class Detect(Resource):
         correct_pw = verify_pw(username, password)
         if not correct_pw:
             ret_json = {
-                'status': 301,
-                'msg': 'Invalid username'
+                'status': 302,
+                'msg': 'Invalid password'
             }
             return jsonify(ret_json)
 
