@@ -42,6 +42,15 @@ services:
     depends_on:
       - base
 
+  web_bank:
+    build:
+      context: web_bank
+    restart: always
+    ports:
+      - "5004:5000"
+    depends_on:
+      - base
+
   db:
     build:
       context: ./db
